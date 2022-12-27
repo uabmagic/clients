@@ -1,0 +1,44 @@
+@import "variables";
+
+.search-bar {
+  background-color: $primary;
+  display: flex;
+  height: $header-height;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 7px 10px;
+  text-align: center;
+
+  input {
+    border: none;
+    border-radius: 3px;
+    font-family: 'Avenir', sans-serif;
+    font-size: 14px;
+    padding: 5px 10px 5px 5px;
+    width: 100%;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+.search-button {
+  align-items: center;
+  background-color: $primary;
+  border: none;
+  color: $white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 10px;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.search-input {
+  width: 100%;
+}

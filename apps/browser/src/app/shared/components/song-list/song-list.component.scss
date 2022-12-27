@@ -1,0 +1,44 @@
+@import "loading-shade";
+@import "variables";
+
+.image {
+  height: 50px;
+  margin-right: $margin;
+  width: 50px;
+}
+
+.mat-list-base {
+  padding-top: 0;
+}
+
+.results {
+  background-color: $white;
+  bottom: $action-button-height;
+  color: $black;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  text-align: left;
+  top: $header-height;
+  width: 100%;
+}
+
+.song {
+  cursor: pointer;
+}
+
+.subtitle {
+  color: $gray;
+  font-family: $font-family;
+  font-size: 10px !important;
+  font-weight: 600;
+  margin-top: 2px;
+  white-space: normal !important;
+}
+
+.title {
+  font-family: $font-family;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: normal !important;
+}

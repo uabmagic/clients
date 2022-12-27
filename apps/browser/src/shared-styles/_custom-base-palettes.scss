@@ -1,0 +1,80 @@
+@use '@angular/material' as mat;
+
+$uab-blue-palette: (
+  50: #e4f7ff,
+  100: #baeafe,
+  200: #8fddfd,
+  300: #68d0f7,
+  400: #53c6f1,
+  500: #4dbcea,
+  600: #46acd5,
+  700: #3a98ba,
+  800: #3184a0,
+  900: #1f6273,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff
+  )
+);
+
+$uab-purple-palette: (
+  50: #f6e4f0,
+  100: #e8bbd9,
+  200: #d98dc1,
+  300: #c85fa9,
+  400: #ba3a98,
+  500: #ac0988,
+  600: #9f0383,
+  700: #8e007d,
+  800: #7f0076,
+  900: #65006a,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff
+  )
+);
+
+$guardsmen-red-base-palette: (
+  50: #fde8e6,
+  100: #ffc8ba,
+  200: #ffa48e,
+  300: #ff7e60,
+  400: #ff5e3e,
+  500: #ff391c,
+  600: #ff3218,
+  700: #f22a12,
+  800: #e4200c,
+  900: #c00,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff
+  )
+);
+
+$custom-palette-primary: mat.define-palette($uab-blue-palette, 700);
+$custom-palette-accent: mat.define-palette($uab-purple-palette, 400);
+$custom-palette-warn: mat.define-palette($guardsmen-red-base-palette, 900);

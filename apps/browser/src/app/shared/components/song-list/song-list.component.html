@@ -1,0 +1,17 @@
+<div class="results">
+  <div class="loading-shade" *ngIf="this.isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <mat-list *ngIf="!this.isLoading">
+    <div class="song" *ngFor="let song of this.songs">
+      <mat-list-item routerLink="song/{{song.id}}">
+        <img class="image" [src]="song.images.url" />
+        <div>
+          <div mat-line class="title">{{song.attractionAndSong}}</div>
+          <div mat-line class="subtitle">{{song.themeParkAndLand}}</div>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+</div>

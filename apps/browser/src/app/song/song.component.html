@@ -1,0 +1,37 @@
+<div class="uab-container">
+  <div class="loading-shade" *ngIf="this.isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="!this.isLoading">
+    <img id="background_image" [src]="this.song.images.blurredUrl" />
+    <div id="overlay"></div>
+    <div class="song-content">
+      <img id="image" [src]="this.song.images.url" />
+      <div id="song-info">
+        <div class="themeParkAndLand">{{this.song.themeParkAndLand}}</div>
+        <div class="attractionAndSong">{{this.song.attractionAndSong}}</div>
+        <hr class="separator" />
+        <div class="details">
+          <div class="song-detail"><strong>Duration: </strong>{{this.song.playback.durationDisplay}}</div>
+          <div class="song-detail" *ngIf="this.song.lastPlayed"><strong>Last played: </strong>{{this.song.lastPlayed}}</div>
+          <div class="song-detail" *ngIf="this.song.year"><strong>Year: </strong>{{this.song.year}}</div>
+        </div>
+      </div>
+    </div>
+    <div id="controls">
+      <button class="button" mat-button color="primary"
+        (click)="this.request()" [disabled]="!this.song.canRequest"
+      >
+        <mat-icon>playlist_add</mat-icon> Request
+      </button>
+      <button class="button" mat-button color="primary" (click)="this.addToFavorites()">
+        <mat-icon>favorite_border</mat-icon> Favorite
+      </button>
+    </div>
+  </div>
+</div>
+<div class="top-bar">
+  <button class="back-arrow" (click)="this.goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>

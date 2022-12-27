@@ -1,0 +1,26 @@
+@use '@angular/material' as mat;
+@import 'custom-base-palettes';
+@import 'fonts';
+
+$font-family: 'Avenir', sans-serif;
+
+$primary: mat.get-color-from-palette($custom-palette-primary);
+$accent: mat.get-color-from-palette($custom-palette-accent);
+$warn: mat.get-color-from-palette($custom-palette-warn);
+
+$black: #000000;
+$gray: #aaaaaa;
+$light-gray: #cccccc;
+$white: #ffffff;
+$white-opacity-15: rgba($white, .15);
+
+$error: '#a10031';
+$success: '#00a170';
+$uabblue: '#3a98ba';
+
+$margin: 8px;
+
+$action-button-height: 55px;
+$header-height: 44px;
+
+$attraction-and-song-font-size: 21px;

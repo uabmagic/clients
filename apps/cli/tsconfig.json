@@ -1,0 +1,21 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./build",
+    "pretty": true,
+    "moduleResolution": "node",
+    "target": "ES2016",
+    "module": "es6",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@uabmagic/common/*": ["../../libs/common/src/*"]
+    }
+  },
+  "include": ["src"]
+}

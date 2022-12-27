@@ -1,0 +1,55 @@
+<app-audio-player></app-audio-player>
+<div>
+  <div class="wrapper">
+    <router-outlet></router-outlet>
+  </div>
+  <nav class="tabs">
+    <ul>
+      <li routerLinkActive="active" #uabNowPlaying="routerLinkActive">
+        <button
+          routerLink="nowplaying"
+          [attr.aria-pressed]="uabNowPlaying.isActive"
+        >
+          <mat-icon>headphones</mat-icon>
+          Listen
+        </button>
+      </li>
+      <li routerLinkActive="active" #uabSearch="routerLinkActive">
+        <button
+          routerLink="search"
+          [attr.aria-pressed]="uabSearch.isActive"
+        >
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </li>
+      <li routerLinkActive="active" #uabRequests="routerLinkActive">
+        <button
+          routerLink="requests"
+          [attr.aria-pressed]="uabRequests.isActive"
+        >
+          <mat-icon>playlist_add</mat-icon>
+          Requests
+        </button>
+      </li>
+      <li routerLinkActive="active" #uabFavorites="routerLinkActive">
+        <button
+          routerLink="favorites"
+          [attr.aria-pressed]="uabFavorites.isActive"
+        >
+          <mat-icon>favorite_border</mat-icon>
+          Favorites
+        </button>
+      </li>
+      <li routerLinkActive="active" #uabSettings="routerLinkActive">
+        <button
+          routerLink="settings"
+          [attr.aria-pressed]="uabSettings.isActive"
+        >
+          <mat-icon>settings</mat-icon>
+          Settings
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>

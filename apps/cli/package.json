@@ -1,0 +1,66 @@
+{
+  "name": "uabcli",
+  "version": "1.0.0",
+  "description": "UABMagic CLI",
+  "main": "index.js",
+  "bin": {
+    "uab": "build/uab.js"
+  },
+  "pkg": {
+    "assets": "./build/**/*"
+  },
+  "scripts": {
+    "clean": "rimraf dist/**/*",
+    "build": "webpack",
+    "build:watch": "webpack --watch",
+    "build:prod": "webpack",
+    "build:prod:watch": "webpack --watch",
+    "dist": "npm run build:prod && npm run clean && npm run package",
+    "dist:win": "npm run build:prod && npm run clean && npm run package:win",
+    "dist:mac": "npm run build:prod && npm run clean && npm run package:mac",
+    "dist:lin": "npm run build:prod && npm run clean && npm run package:lin",
+    "make-global": "npm run build:prod && npm run clean && npm install -g",
+    "package": "npm run package:win && npm run package:mac && npm run package:lin",
+    "package:win": "pkg . --targets win-x64 --output ./dist/windows/uab.exe --build",
+    "package:mac": "pkg . --targets macos-x64 --output ./dist/macos/uab",
+    "package:lin": "pkg . --targets linux-x64 --output ./dist/linux/uab",
+    "test": "jest"
+  },
+  "keywords": [
+    "disney",
+    "uab",
+    "utilidors"
+  ],
+  "author": "Robbie Page <rorpage@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "arg": "^5.0.2",
+    "axios": "^0.21.1",
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "commander": "^9.3.0",
+    "configstore": "^5.0.0",
+    "console-table-printer": "^2.8.2",
+    "figlet": "^1.5.0",
+    "inquirer": "^8.0.0",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "@types/clear": "^0.1.2",
+    "@types/clui": "^0.3.1",
+    "@types/configstore": "^5.0.1",
+    "@types/figlet": "^1.5.4",
+    "@types/inquirer": "^8.2.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "pkg": "^5.7.0",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^9.3.1",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

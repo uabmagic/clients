@@ -1,0 +1,25 @@
+@import 'variables';
+
+.button {
+  margin: $margin;
+}
+
+.form-field {
+  margin-right: $margin;
+}
+
+// Material override
+.mat-list-item {
+  height: auto !important;
+}
+
+.section {
+  border-bottom: 1px solid $white;
+  margin: $margin 0;
+}
+
+.wrapper {
+  background-color: $white;
+  min-height: calc(100vh - 55px);
+  padding: $margin * 2;
+}

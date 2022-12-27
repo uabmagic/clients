@@ -1,0 +1,59 @@
+@import 'variables';
+
+.tabs {
+  background-color: $white;
+  border-top: 1px solid $black;
+  bottom: 0;
+  height: $action-button-height;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  width: 100%;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      flex: 1;
+      margin: 0;
+      padding: 0;
+
+      button {
+        background-color: $white;
+        border: none;
+        color: $gray;
+        display: block;
+        font-family: $font-family;
+        font-size: 12px;
+        overflow: hidden;
+        padding: 8px 0;
+        text-align: center;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+
+        mat-icon {
+          display: block;
+          width: auto;
+        }
+
+        &:hover {
+          background-color: $primary;
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - $action-button-height);
+}

@@ -1,0 +1,68 @@
+<app-header [headerText]="'Settings'"></app-header>
+<div class="wrapper">
+  <mat-list>
+    <div mat-subheader>ACCOUNT</div>
+    <mat-list-item>
+      <div *ngIf="this.isLoggedIn">
+        <span class="button">
+          <button class="button" mat-raised-button color="primary" (click)="this.refreshCredentials()">
+            <mat-icon>refresh</mat-icon> Refresh credentials
+          </button>
+        </span>
+        <span class="button">
+          <button class="button" mat-raised-button color="primary" (click)="this.logout()">
+            <mat-icon>logout</mat-icon> Logout
+          </button>
+        </span>
+      </div>
+      <div *ngIf="!this.isLoggedIn">
+        <form [formGroup]="form">
+          <mat-form-field class="form-field">
+            <mat-label>Username</mat-label>
+            <input matInput [formControl]="this.username">
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="this.hidePassword ? 'password' : 'text'" [formControl]="this.password">
+            <button mat-icon-button matSuffix (click)="this.hidePassword = !this.hidePassword"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="this.hidePassword"
+            >
+              <mat-icon>{{this.hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <button class="button" mat-raised-button color="primary" (click)="this.login()">
+            <mat-icon>login</mat-icon> Login
+          </button>
+        </form>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <div mat-subheader>PREFERENCES</div>
+    <mat-list-item>
+      <mat-slide-toggle
+        id="showNotificationWhenNowPlayingChanges"
+        (change)="this.slideToggleChanged($event)"
+      >
+        Show notification when Now Playing changes
+      </mat-slide-toggle>
+    </mat-list-item>
+  </mat-list>
+  <!-- <div class="section">
+    <div *ngIf="this.isLoggedIn">
+      <button class="button" mat-raised-button color="primary" (click)="this.refreshCredentials()">
+        <mat-icon>refresh</mat-icon> Refresh credentials
+      </button>
+    </div>
+    <div *ngIf="!this.isLoggedIn">
+      Login
+    </div>
+  </div>
+  <div class="section">
+    <mat-slide-toggle
+      id="showNotificationWhenNowPlayingChanges"
+      (change)="this.slideToggleChanged($event)"
+    >
+      Show notification when Now Playing changes
+    </mat-slide-toggle>
+  </div> -->
+</div>

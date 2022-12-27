@@ -1,0 +1,26 @@
+{
+  "editor.renderWhitespace": "boundary",
+  "editor.tabSize": 2,
+  "editor.wordWrapColumn": 111,
+  "editor.rulers": [
+    111
+  ],
+  "editor.wrappingIndent": "indent",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": true
+  },
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the files.exclude setting.
+  "search.exclude": {
+    "**/node_modules": true
+  },
+  "html.format.endWithNewline": true,
+  "html.format.wrapLineLength": 111,
+  "html.format.wrapAttributes": "auto",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "tslint.configFile": "./src/tslint.json",
+  "tslint.ignoreDefinitionFiles": true,
+  "sasslint.configFile": "/.sass-lint.yml"
+}

@@ -1,0 +1,9 @@
+<div class="search-bar">
+  <form class="search-input" [formGroup]="this.form">
+    <input type="text" [formControl]="this.query">
+  </form>
+  <button class="search-button" (click)="this.search()">
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+<app-song-list [songs]="this.songs"></app-song-list>

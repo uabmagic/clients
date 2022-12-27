@@ -1,0 +1,25 @@
+@import "variables";
+
+#popout-link {
+  cursor: pointer;
+  right: 0;
+}
+
+.top-button {
+  margin: $margin;
+}
+
+.title-container {
+  color: $white;
+  left: 0;
+  position: absolute;
+  top: 48px;
+}
+
+.success-snackbar {
+  background: $success;
+}
+
+.error-snackbar {
+  background: $error;
+}

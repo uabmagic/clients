@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "UABMagic",
+  "short_name": "UABMagic",
+  "version": "1.0.0",
+  "description": "Listen to the Land. Tune in the World.",
+  "homepage_url": "http://uabmagic.com",
+  "permissions": [
+    "alarms",
+    "notifications",
+    "storage"
+  ],
+  "icons": {
+    "16": "assets/icon_16.png",
+    "48": "assets/icon_48.png",
+    "128": "assets/icon_128.png"
+  },
+  "action": {},
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages" : "script-src 'self'; object-src 'self'"
+  },
+  "host_permissions": [
+    "https://image-converter-five.vercel.app/",
+    "https://uabmagic-api.vercel.app/"
+  ]
+}
