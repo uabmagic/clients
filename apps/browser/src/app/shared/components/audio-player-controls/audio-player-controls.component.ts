@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import BrowserLocalStorageService from '@app/core/services/browser-local-storage.service';
 
 @Component({
   selector: 'app-audio-player-controls',
@@ -8,11 +9,13 @@ import { Component } from '@angular/core';
 export class AudioPlayerControlsComponent {
   isPlaying = false;
 
-  constructor() { }
+  constructor(
+    private browserLocalStorageService: BrowserLocalStorageService
+  ) { }
 
   toggleStream(): void {
     this.isPlaying = !this.isPlaying;
 
-    chrome.storage.local.set({ isPlaying: this.isPlaying });
+    this.browserLocalStorageService.save('isPlaying', this.isPlaying);
   }
 }

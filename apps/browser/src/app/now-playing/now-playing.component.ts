@@ -5,6 +5,7 @@ import { UABDataService } from '@app/core/services/data/uab-data.service';
 import { UpNextDialogData } from '@app/shared/models/dialog-data/up-next-dialog-data.model';
 import { NowPlayingSong } from '@uabmagic/common/models/response/now-playing-song.model';
 import { UpNextDialogComponent } from './up-next-dialog/up-next-dialog.component';
+import BrowserLocalStorageService from '@app/core/services/browser-local-storage.service';
 
 @Component({
   selector: 'app-now-playing',
@@ -28,6 +29,7 @@ export class NowPlayingComponent implements OnInit {
   timeout: any = null;
 
   constructor(
+    private browserLocalStorageService: BrowserLocalStorageService,
     public dialog: MatDialog,
     private uabDataService: UABDataService
   ) { }
@@ -54,7 +56,7 @@ export class NowPlayingComponent implements OnInit {
     clearTimeout(this.timeout);
 
     this.uabDataService.getNowPlayingSong()
-      .subscribe((result: NowPlayingSong) => {
+      .subscribe(async (result: NowPlayingSong) => {
         this.nowPlayingSong = result;
 
         const timeLeft = result?.playback?.timeLeft ?? 15000;
@@ -64,9 +66,9 @@ export class NowPlayingComponent implements OnInit {
         this.timeout = setTimeout(() => this.refreshSong(), this.timeLeft);
 
         const showNotificationWhenNowPlayingChanges =
-          String(localStorage.getItem('showNotificationWhenNowPlayingChanges'));
+          await this.browserLocalStorageService.get<boolean>('showNotificationWhenNowPlayingChanges');
 
-        if (JSON.parse(showNotificationWhenNowPlayingChanges) === true
+        if (showNotificationWhenNowPlayingChanges
           && this.currentSongId !== result.id) {
           this.currentSongId = result.id;
 

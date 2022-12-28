@@ -1,6 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from, mergeMap } from 'rxjs';
 
 import { AuthService } from '@app/core/services/auth.service';
 
@@ -13,16 +13,18 @@ export class AuthInterceptor implements HttpInterceptor {
       'Content-Type': 'application/json'
     };
 
-    const authorizationValue = this.authService.authorizationValue;
+    return from(this.authService.getAuthorizationValue()).pipe(
+      mergeMap((token: string) => {
+        if (token) {
+          headers['Authorization'] = token;
+        }
 
-    if (authorizationValue) {
-      headers['Authorization'] = authorizationValue;
-    }
+        request = request.clone({
+          setHeaders: headers
+        });
 
-    request = request.clone({
-      setHeaders: headers
-    });
-
-    return next.handle(request);
+        return next.handle(request);
+      })
+    );
   }
 }

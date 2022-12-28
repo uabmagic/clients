@@ -6,6 +6,7 @@ import { of, Subject } from 'rxjs';
 import { Notification } from '@uabmagic/common/models/notification.model';
 import { NotificationService } from './core/services/notification.service';
 import { NotificationLevel } from '@uabmagic/common/models/enum/notification-level.enum';
+import BrowserLocalStorageService from './core/services/browser-local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject('WINDOW') private window: any,
+    private browserLocalStorageService: BrowserLocalStorageService,
     private notificationService: NotificationService,
     private snackBar: MatSnackBar
   ) { }
@@ -34,11 +36,11 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((notification: Notification) => this.handleIncomingNotification(notification));
   }
 
-  ngOnDestroy() {
+  async ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
 
-    chrome.storage.local.set({ isPlaying: false });
+    await this.browserLocalStorageService.save('isPlaying', false);
   }
 
   handleIncomingNotification(notification: Notification): void {

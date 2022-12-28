@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import BrowserLocalStorageService from '@app/core/services/browser-local-storage.service';
 import { UABDataService } from '@app/core/services/data/uab-data.service';
 import { SongList } from "@uabmagic/common/models/response/song-list.model";
 import { Song } from "@uabmagic/common/models/response/song.model";
@@ -19,6 +20,7 @@ export class SearchComponent implements OnInit {
   songs!: Song[];
 
   constructor(
+    private browserLocalStorageService: BrowserLocalStorageService,
     private formBuilder: FormBuilder,
     private uabDataService: UABDataService
   ) {
@@ -27,22 +29,20 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    chrome.storage.local.get(["query"], ({ query }) => {
-      if (!query) return;
+  async ngOnInit(): Promise<void> {
+    const query = await this.browserLocalStorageService.get<string>('query');
 
-      this.query.setValue(query);
+    this.query.setValue(query);
 
-      this.search();
-    });
+    this.search();
   }
 
-  search(): void {
+  async search(): Promise<void> {
     const query = this.query.value;
 
     if (!query || query.length < 3) return;
 
-    chrome.storage.local.set({ query });
+    this.browserLocalStorageService.save('query', query);
 
     this.uabDataService.search(query).pipe(
       finalize(() => this.isLoading = false)

@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import BrowserLocalStorageService from "./browser-local-storage.service";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -7,52 +8,62 @@ export class AuthService {
   userIdKey = 'userId';
   usernameKey = 'username';
 
-  get password(): string {
-    return localStorage.getItem(this.passwordKey) || '';
+  constructor(
+    private browserLocalStorageService: BrowserLocalStorageService
+  ) { }
+
+  public getPassword(): Promise<string> {
+    return this.browserLocalStorageService.get<string>(this.passwordKey);
   }
 
-  public setPassword(password: string): void {
-    localStorage.setItem(this.passwordKey, password);
+  public setPassword(password: string): Promise<void> {
+    return this.browserLocalStorageService.save(this.passwordKey, password);
   }
 
-  get username(): string {
-    return localStorage.getItem(this.usernameKey) || '';
+  public getUsername(): Promise<string> {
+    return this.browserLocalStorageService.get<string>(this.usernameKey);
   }
 
-  public setUsername(username: string): void {
-    localStorage.setItem(this.usernameKey, username);
+  public setUsername(username: string): Promise<void> {
+    return this.browserLocalStorageService.save(this.usernameKey, username);
   }
 
-  get sid(): string {
-    return localStorage.getItem(this.sidKey) || '';
+  public getSid(): Promise<string> {
+    return this.browserLocalStorageService.get<string>(this.sidKey);
   }
 
-  public setSid(sid: string): void {
-    localStorage.setItem(this.sidKey, sid);
+  public setSid(sid: string): Promise<void> {
+    return this.browserLocalStorageService.save(this.sidKey, sid);
   }
 
-  get userId(): number {
-    return Number(localStorage.getItem(this.userIdKey)) || 0;
+  public getUserId(): Promise<number> {
+    return this.browserLocalStorageService.get<number>(this.userIdKey);
   }
 
-  public setUserId(userId: number): void {
-    localStorage.setItem(this.userIdKey, userId.toString());
+  public setUserId(userId: number): Promise<void> {
+    return this.browserLocalStorageService.save(this.userIdKey, userId);
   }
 
-  get authorizationValue(): string | null {
-    return (!this.userId || !this.sid)
-      ? null
-      : `${this.userId}:${this.sid}`;
+  public async getAuthorizationValue(): Promise<string> {
+    const sid = await this.getSid();
+    const userId = await this.getUserId();
+
+    return (!sid || !userId)
+      ? ''
+      : `${userId}:${sid}`;
   }
 
-  get isLoggedIn(): boolean {
-    return this.username !== '' && this.password !== '';
+  public async getIsLoggedIn(): Promise<boolean> {
+    const password = await this.getPassword();
+    const username = await this.getUsername();
+
+    return password && password !== '' && username && username !== '';
   }
 
-  public logout(): void {
-    localStorage.removeItem(this.passwordKey);
-    localStorage.removeItem(this.sidKey);
-    localStorage.removeItem(this.userIdKey);
-    localStorage.removeItem(this.usernameKey);
+  public async logout(): Promise<void> {
+    await this.browserLocalStorageService.remove(this.passwordKey);
+    await this.browserLocalStorageService.remove(this.sidKey);
+    await this.browserLocalStorageService.remove(this.userIdKey);
+    await this.browserLocalStorageService.remove(this.usernameKey);
   }
 }

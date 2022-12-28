@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { AuthService } from '@app/core/services/auth.service';
+import BrowserLocalStorageService from '@app/core/services/browser-local-storage.service';
 import { UABDataService } from '@app/core/services/data/uab-data.service';
 import { AppConstants } from '@app/shared/app-constants';
 import { LoginRequest } from '@uabmagic/common/models/request/login-request.model';
@@ -25,6 +26,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private browserLocalStorageService: BrowserLocalStorageService,
     private builder: FormBuilder,
     private uabDataService: UABDataService
   ) {
@@ -34,50 +36,56 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.checkAuthStatus();
+  async ngOnInit(): Promise<void> {
+    await this.checkAuthStatus();
   }
 
-  checkAuthStatus(): void {
-    this.isLoggedIn = this.authService.isLoggedIn;
+  async checkAuthStatus(): Promise<void> {
+    this.isLoggedIn = await this.authService.getIsLoggedIn();
+    console.log(`this.isLoggedIn: ${this.isLoggedIn}`);
   }
 
-  login(): void {
+  async login(): Promise<void> {
     const username = this.username.value || '';
     const password = this.password.value || '';
 
-    this.authService.setUsername(username);
-    this.authService.setPassword(password);
+    await this.authService.setUsername(username);
+    await this.authService.setPassword(password);
 
-    this.refreshCredentials();
+    await this.refreshCredentials();
   }
 
-  logout(): void {
-    this.authService.logout();
+  async logout(): Promise<void> {
+    await this.authService.logout();
 
-    this.checkAuthStatus();
+    await this.checkAuthStatus();
   }
 
-  refreshCredentials(): void {
+  async refreshCredentials(): Promise<void> {
     chrome.alarms.clearAll();
 
     if (!chrome.alarms.onAlarm.hasListeners()) {
-      chrome.alarms.onAlarm.addListener((alarm) => { this.refreshTokenAlarmListener(alarm) });
+      chrome.alarms.onAlarm.addListener(async (alarm) => {
+        await this.refreshTokenAlarmListener(alarm)
+      });
     }
 
     this.createTokenRefreshAlarm();
 
+    const password = await this.authService.getPassword();
+    const username = await this.authService.getUsername();
+
     const loginRequest: LoginRequest = {
-      password: this.authService.password,
-      username: this.authService.username
+      password,
+      username
     };
 
     this.uabDataService.login(loginRequest)
-      .subscribe((loginResponse: LoginResponse) => {
-        this.checkAuthStatus();
+      .subscribe(async (loginResponse: LoginResponse) => {
+        await this.checkAuthStatus();
 
-        this.authService.setSid(loginResponse.sid);
-        this.authService.setUserId(loginResponse.userId);
+        await this.authService.setSid(loginResponse.sid);
+        await this.authService.setUserId(loginResponse.userId);
 
         this.username.setValue(null);
         this.password.setValue(null);
@@ -93,13 +101,13 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  refreshTokenAlarmListener(alarm: chrome.alarms.Alarm) {
+  async refreshTokenAlarmListener(alarm: chrome.alarms.Alarm) {
     if (alarm.name === this.refreshTokenAlarmName) {
-      this.refreshCredentials();
+      await this.refreshCredentials();
     }
   }
 
   slideToggleChanged(matSlideToggleChange: MatSlideToggleChange): void {
-    localStorage.setItem(matSlideToggleChange.source.id, String(matSlideToggleChange.checked));
+    this.browserLocalStorageService.save(matSlideToggleChange.source.id, matSlideToggleChange.checked);
   }
 }
