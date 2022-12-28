@@ -42,7 +42,6 @@ export class SettingsComponent implements OnInit {
 
   async checkAuthStatus(): Promise<void> {
     this.isLoggedIn = await this.authService.getIsLoggedIn();
-    console.log(`this.isLoggedIn: ${this.isLoggedIn}`);
   }
 
   async login(): Promise<void> {
