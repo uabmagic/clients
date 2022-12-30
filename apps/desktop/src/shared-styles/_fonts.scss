@@ -1,0 +1,55 @@
+/** Fonts **/
+
+@font-face {
+  font-family: 'Avenir';
+  font-weight: 300;
+  src: url(../assets/fonts/avenir_35_light_latin.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'Avenir';
+  font-weight: 400;
+  src: url(../assets/fonts/avenir_45_book_latin.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'Avenir';
+  font-weight: 600;
+  src: url(../assets/fonts/avenir_55_roman_latin.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'Avenir';
+  font-weight: 800;
+  src: url(../assets/fonts/avenir_85_heavy_latin.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'Avenir';
+  font-weight: 900;
+  src: url(../assets/fonts/avenir_95_black_latin.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../assets/fonts/MaterialIcons-Regular.woff2) format("woff2");
+}
+
+.material-icons {
+  direction: ltr;
+  display: inline-block;
+  font-family: 'Material Icons';
+  font-feature-settings: 'liga';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}

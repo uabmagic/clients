@@ -1,0 +1,20 @@
+{
+  "name": "@uabmagic/angular",
+  "version": "0.0.0",
+  "description": "Common Angular code used across UABMagic JavaScript projects.",
+  "keywords": [
+    "uabmagic"
+  ],
+  "author": "UABMagic",
+  "homepage": "http://uabmagic.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uabmagic/clients"
+  },
+  "license": "GPL-3.0",
+  "scripts": {
+    "clean": "rimraf dist/**/*",
+    "build": "npm run clean && tsc",
+    "build:watch": "npm run clean && tsc -watch"
+  }
+}

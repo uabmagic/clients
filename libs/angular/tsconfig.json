@@ -1,0 +1,5 @@
+{
+  "extends": "../shared/tsconfig.libs",
+  "include": ["src", "spec", "src/core/services/browser-local-storage.service.ts"],
+  "exclude": ["node_modules", "dist"]
+}

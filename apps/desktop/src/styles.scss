@@ -1,0 +1,15 @@
+@import 'custom-material-theme';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: #1d4c5d;
+  font-family: 'Avenir', sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+}
