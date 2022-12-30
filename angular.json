@@ -1,0 +1,250 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "apps",
+  "cli": {
+    "analytics": false
+  },
+  "projects": {
+    "browser": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true,
+          "style": "scss"
+        }
+      },
+      "root": "apps/browser",
+      "sourceRoot": "apps/browser/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "apps/browser/dist/browser",
+            "index": "apps/browser/src/index.html",
+            "main": "apps/browser/src/main.ts",
+            "polyfills": "apps/browser/src/polyfills.ts",
+            "tsConfig": "apps/browser/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/browser/src/favicon.ico",
+              "apps/browser/src/assets",
+              "apps/browser/src/manifest.json",
+              "apps/browser/src/background.js"
+            ],
+            "styles": [
+              "apps/browser/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/browser/src/shared-styles"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "975kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/browser/src/environments/environment.ts",
+                  "with": "apps/browser/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "outputHashing": "none"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "browser:build:production"
+            },
+            "development": {
+              "browserTarget": "browser:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "browser:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/browser/src/test.ts",
+            "polyfills": "apps/browser/src/polyfills.ts",
+            "tsConfig": "apps/browser/tsconfig.spec.json",
+            "karmaConfig": "apps/browser/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/browser/src/favicon.ico",
+              "apps/browser/src/assets"
+            ],
+            "styles": [
+              "apps/browser/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/browser/src/shared-styles"
+              ]
+            },
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/browser/tsconfig.app.json",
+              "apps/browser/tsconfig.spec.json",
+              "apps/browser/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "desktop": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true,
+          "style": "scss"
+        }
+      },
+      "root": "apps/desktop",
+      "sourceRoot": "apps/desktop/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "apps/desktop/dist/desktop",
+            "index": "apps/desktop/src/index.html",
+            "main": "apps/desktop/src/main.ts",
+            "polyfills": "apps/desktop/src/polyfills.ts",
+            "tsConfig": "apps/desktop/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/desktop/src/app.js",
+              "apps/desktop/src/favicon.ico",
+              "apps/desktop/src/assets"
+            ],
+            "styles": [
+              "apps/desktop/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/desktop/src/shared-styles"
+              ]
+            },
+            "scripts": []
+          }
+        }
+      }
+    },
+    "components": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "libs/components",
+      "sourceRoot": "libs/components/src",
+      "prefix": "bit",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/components",
+            "index": "libs/components/src/index.html",
+            "main": "libs/components/src/main.ts",
+            "polyfills": "libs/components/src/polyfills.ts",
+            "tsConfig": "libs/components/tsconfig.app.json",
+            "assets": ["libs/components/src/favicon.ico", "libs/components/src/assets"],
+            "styles": ["libs/components/src/styles.scss", "libs/components/src/styles.css"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/components/src/styles"]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "test-storybook:build:production"
+            },
+            "development": {
+              "browserTarget": "test-storybook:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "angular": {
+      "projectType": "library",
+      "root": "libs/angular",
+      "sourceRoot": "libs/angular/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "defaultConfiguration": "production"
+        }
+      }
+    }
+  }
+}

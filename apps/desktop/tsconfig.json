@@ -35,5 +35,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "include": ["src", "../../libs/angular/src/core/services/browser-local-storage.service.ts"]
+  "include": ["src"]
 }

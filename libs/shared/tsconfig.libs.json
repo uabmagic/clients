@@ -2,7 +2,8 @@
   "extends": "./tsconfig",
   "compilerOptions": {
     "paths": {
-      "@uabmagic/common/*": ["../common/src/*"],
+      "@uabmagic/angular/*": ["../angular/src/*"],
+      "@uabmagic/common/*": ["../common/src/*"]
     }
   }
 }

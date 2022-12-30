@@ -1,0 +1,83 @@
+@import "variables";
+
+#image {
+  height: 200px;
+  margin-top: 24px;
+  width: 200px;
+}
+
+#background_image {
+  border: none;
+  box-sizing: border-box;
+  display: block;
+  filter: blur(8px);
+  height: 0px;
+  inset: 0px;
+  margin: auto;
+  max-height: calc(100vh - $action-button-height);
+  max-width: 100%;
+  min-height: calc(100vh - $action-button-height);
+  min-width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  padding: 0px;
+  position: absolute;
+  transform: scale(1.1);
+  width: 0px;
+  -webkit-filter: blur(8px);
+}
+
+#overlay {
+  background-color: rgba(0,0,0,.3333333333333333);
+  height: calc(100vh - $action-button-height);
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.time-display {
+  margin: $margin * 2;
+}
+
+.song-info {
+  margin-bottom: $margin * 3;
+  margin-top: $margin * 3;
+}
+
+.attractionAndSong {
+  font-size: $attraction-and-song-font-size;
+  font-weight: 800;
+}
+
+.progress-bar {
+  margin-top: $margin * 3;
+}
+
+.requestor {
+  font-weight: 400;
+  margin-top: $margin;
+}
+
+.themeParkAndLand {
+  color: $light-gray;
+  font-weight: 400;
+  margin-bottom: $margin;
+  text-transform: uppercase;
+}
+
+.container {
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - $action-button-height);
+  justify-content: space-between;
+  padding: $margin * 4;
+  text-align: center;
+}
+
+.song-content {
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 999
+}

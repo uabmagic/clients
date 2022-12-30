@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "pretty": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "target": "ES6",
+    "module": "ES2020",
+    "lib": ["es5", "es6", "es7", "dom"],
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "paths": {
+      "@uabmagic/angular/*": ["./libs/angular/src/*"],
+      "@uabmagic/common/*": ["./libs/common/src/*"]
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      }
+    ]
+  },
+}
