@@ -1,11 +1,13 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+import { AbstractStorageService } from '@uabmagic/common/abstractions/storage.service';
 import { UpNextDialogData } from '@uabmagic/angular/shared/models/dialog-data/up-next-dialog-data.model';
 import { NowPlayingSong } from '@uabmagic/common/models/response/now-playing-song.model';
 import { UpNextDialogComponent } from './up-next-dialog/up-next-dialog.component';
+
+import { TitleService } from '../core/services/title.service';
 import { UABDataService } from '../core/services/data/uab-data.service';
-import { AbstractStorageService } from '@uabmagic/common/abstractions/storage.service';
 
 @Component({
   selector: 'app-now-playing',
@@ -31,6 +33,7 @@ export class NowPlayingComponent implements OnInit {
   constructor(
     private storageService: AbstractStorageService,
     public dialog: MatDialog,
+    private titleService: TitleService,
     private uabDataService: UABDataService
   ) { }
 
@@ -58,6 +61,9 @@ export class NowPlayingComponent implements OnInit {
     this.uabDataService.getNowPlayingSong()
       .subscribe(async (result: NowPlayingSong) => {
         this.nowPlayingSong = result;
+
+        const title = `${result.attractionAndSong} (${result.themeParkAndLand.toUpperCase()})`;
+        this.titleService.setPageTitle(title);
 
         const timeLeft = result?.playback?.timeLeft ?? 15000;
         this.timeLeft = timeLeft * 1000;
