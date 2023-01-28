@@ -89,7 +89,6 @@ jobs:
 
       - name: Install
         run: npm ci
-        working-directory: ./
 
       - name: Build & Package Windows
         if: runner.os == 'Windows'
