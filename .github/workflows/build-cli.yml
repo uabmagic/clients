@@ -26,7 +26,7 @@ jobs:
       package_version: ${{ steps.retrieve-version.outputs.package_version }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+        uses: actions/checkout@v3
 
       - name: Get Package Version
         id: retrieve-version
@@ -48,7 +48,7 @@ jobs:
       _WIN_PKG_VERSION: 3.4
     steps:
       - name: Checkout repo
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+        uses: actions/checkout@v3
 
       - name: Setup Unix Vars
         if: runner.os != 'Windows'
@@ -65,7 +65,7 @@ jobs:
           choco install nasm --no-progress
 
       - name: Set up Node
-        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # v3.2.0
+        uses: actions/setup-node@v3
         with:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
@@ -97,3 +97,28 @@ jobs:
       - name: Build & Package Unix
         if: runner.os != 'Windows'
         run: npm run dist:${{ env.SHORT_RUNNER_OS }} --quiet
+
+      - name: Zip Windows
+        shell: cmd
+        if: runner.os == 'Windows'
+        run: 7z a ./dist/uab-windows-%_PACKAGE_VERSION%.zip ./dist/windows/uab.exe
+
+      - name: Zip Unix
+        if: runner.os != 'Windows'
+        run: |
+          cd ./dist/${{ env.LOWER_RUNNER_OS }}
+          zip ../uab-${{ env.LOWER_RUNNER_OS }}-${{ env._PACKAGE_VERSION }}.zip ./uab
+
+      - name: Upload Windows zip asset
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v3
+        with:
+          name: uab-windows-${{ env._PACKAGE_VERSION }}.zip
+          path: apps/cli/dist/uab-windows-${{ env._PACKAGE_VERSION }}.zip
+
+      - name: Upload Unix zip asset
+        if: runner.os != 'Windows'
+        uses: actions/upload-artifact@v3
+        with:
+          name: uab-${{ env.LOWER_RUNNER_OS }}-${{ env._PACKAGE_VERSION }}.zip
+          path: apps/cli/dist/uab-${{ env.LOWER_RUNNER_OS }}-${{ env._PACKAGE_VERSION }}.zip
