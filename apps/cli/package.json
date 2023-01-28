@@ -21,7 +21,7 @@
     "dist:lin": "npm run build:prod && npm run clean && npm run package:lin",
     "make-global": "npm run build:prod && npm run clean && npm install -g",
     "package": "npm run package:win && npm run package:mac && npm run package:lin",
-    "package:win": "pkg . --targets win-x64 --output ./dist/windows/uab.exe --build",
+    "package:win": "pkg . --targets win-x64 --output ./dist/windows/uab.exe",
     "package:mac": "pkg . --targets macos-x64 --output ./dist/macos/uab",
     "package:lin": "pkg . --targets linux-x64 --output ./dist/linux/uab",
     "test": "jest"
