@@ -21,18 +21,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "apps/browser/dist/browser",
             "index": "apps/browser/src/index.html",
             "main": "apps/browser/src/main.ts",
             "polyfills": "apps/browser/src/polyfills.ts",
             "tsConfig": "apps/browser/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "apps/browser/src/favicon.ico",
-              "apps/browser/src/assets",
-              "apps/browser/src/manifest.json",
-              "apps/browser/src/background.js"
-            ],
             "styles": [
               "apps/browser/src/styles.scss"
             ],
@@ -45,6 +38,13 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "apps/browser/dist/browser",
+              "assets": [
+                "apps/browser/src/assets",
+                "apps/browser/src/background.js",
+                "apps/browser/src/favicon.ico",
+                "apps/browser/src/manifest.json"
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -53,7 +53,97 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
+                  "maximumWarning": "3kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/browser/src/environments/environment.ts",
+                  "with": "apps/browser/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "outputHashing": "none"
+            },
+            "manifestv2": {
+              "outputPath": "apps/browser/dist/browser_v2",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "ignore": ["**/*manifest*.json"],
+                  "input": "apps/browser/src/assets",
+                  "output": "/assets/"
+                },
+                "apps/browser/src/background.js",
+                "apps/browser/src/favicon.ico",
+                {
+                  "glob": "*",
+                  "input": "apps/browser/src/assets/manifest/v2",
+                  "output": "."
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "975kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "3kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/browser/src/environments/environment.ts",
+                  "with": "apps/browser/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "outputHashing": "none"
+            },
+            "manifestv3": {
+              "outputPath": "apps/browser/dist/browser_v3",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "ignore": ["**/*manifest*.json"],
+                  "input": "apps/browser/src/assets",
+                  "output": "/assets/"
+                },
+                "apps/browser/src/background.js",
+                "apps/browser/src/favicon.ico",
+                {
+                  "glob": "*",
+                  "input": "apps/browser/src/assets/manifest/v3",
+                  "output": "."
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "975kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "3kb",
                   "maximumError": "4kb"
                 }
               ],

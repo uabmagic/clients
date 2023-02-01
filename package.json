@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "build-angular": "ng build angular",
-    "build-browser": "ng build browser",
+    "build-browser": "ng run browser:build:manifestv2",
+    "build-browser:v3": "ng run browser:build:manifestv3",
     "build-components": "ng build components",
     "build-desktop": "ng build desktop",
     "desktop": "npm run build-desktop && npm run run-desktop",
