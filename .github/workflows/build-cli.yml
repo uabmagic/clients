@@ -113,12 +113,12 @@ jobs:
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v3
         with:
-          name: uab-windows-${{ env._PACKAGE_VERSION }}.zip
+          name: uab-windows-${{ env._PACKAGE_VERSION }}
           path: apps/cli/dist/uab-windows-${{ env._PACKAGE_VERSION }}.zip
 
       - name: Upload Unix zip asset
         if: runner.os != 'Windows'
         uses: actions/upload-artifact@v3
         with:
-          name: uab-${{ env.LOWER_RUNNER_OS }}-${{ env._PACKAGE_VERSION }}.zip
+          name: uab-${{ env.LOWER_RUNNER_OS }}-${{ env._PACKAGE_VERSION }}
           path: apps/cli/dist/uab-${{ env.LOWER_RUNNER_OS }}-${{ env._PACKAGE_VERSION }}.zip

@@ -1,0 +1,61 @@
+name: Build Browser
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'apps/browser/**'
+      - 'libs/**'
+      - '*'
+      - '!*.md'
+      - '!*.txt'
+      - '.github/workflows/build-browser.yml'
+  workflow_dispatch:
+    inputs: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  browser:
+    name: Build Browser
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+          node-version: '14'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build manifest v2 version
+        run: npm run build-browser
+
+      - name: Build manifest v3 version
+        run: npm run build-browser:v3
+
+      - name: Zip manifest v2 version
+        run: 7z a ./apps/browser/dist/firefox.zip ./apps/browser/dist/browser_v2/*
+
+      - name: Zip manifest v3 version
+        run: 7z a ./apps/browser/dist/chrome.zip ./apps/browser/dist/browser_v3/*
+
+      - name: Upload manifest v2 asset
+        uses: actions/upload-artifact@v3
+        with:
+          name: firefox
+          path: apps/browser/dist/firefox.zip
+
+      - name: Upload manifest v3 asset
+        uses: actions/upload-artifact@v3
+        with:
+          name: chrome
+          path: apps/browser/dist/chrome.zip
